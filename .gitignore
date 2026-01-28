@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.zip
+predictions/
+data/
+ambistory_official/
