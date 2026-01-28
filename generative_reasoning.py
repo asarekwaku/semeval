@@ -64,6 +64,7 @@ def query_ollama(model, prompt, api_url, temperature=0.0):
             return result.get('response', '')
     except Exception as e:
         logger.error(f"Error querying Ollama ({model}): {e}")
+        logger.error(f"  -> Is Ollama running? Check with 'curl {api_url}' or 'systemctl status ollama'")
         return None
 
 def query_ollama_with_retry(model, prompt, api_url, temperature=0.0, max_retries=3):
