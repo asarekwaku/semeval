@@ -94,9 +94,7 @@ def query_ollama(model: str, prompt: str, api_url: str, temperature: float = 0.0
         "prompt": prompt,
         "stream": False,
         "options": {
-            "temperature": temperature,
-            "num_predict": 1024,  # Limit response length
-            "top_p": 0.9,
+            "temperature": temperature
         }
     }
     
@@ -107,14 +105,12 @@ def query_ollama(model: str, prompt: str, api_url: str, temperature: float = 0.0
             data=encoded_data,
             headers={'Content-Type': 'application/json'}
         )
-        with urllib.request.urlopen(req, timeout=120) as response:
+        with urllib.request.urlopen(req) as response:
             result = json.loads(response.read().decode('utf-8'))
             return result.get('response', '')
-    except urllib.error.URLError as e:
-        logger.error(f"Network error querying Ollama ({model}): {e}")
-        return None
     except Exception as e:
         logger.error(f"Error querying Ollama ({model}): {e}")
+        logger.error(f"  -> Is Ollama running? Check with 'curl {api_url}' or 'systemctl status ollama'")
         return None
 
 
@@ -247,7 +243,7 @@ def main():
     parser = argparse.ArgumentParser(description="Enhanced Generative Reasoning for AmbiStory v2")
     parser.add_argument("--input", default="data/dev.json", help="Path to input JSON file")
     parser.add_argument("--output", default="predictions/predictions_v2.jsonl", help="Path to output JSONL file")
-    parser.add_argument("--model", default="llama3.1:70b", help="Ollama model to use")
+    parser.add_argument("--model", default="llama3.1:70b-instruct-q4_0", help="Ollama model to use")
     parser.add_argument("--api-url", default="http://localhost:11434", help="Ollama API URL")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of samples for testing")
     parser.add_argument("--ensemble", type=int, default=9, help="Number of ensemble votes (default: 9)")

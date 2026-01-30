@@ -20,7 +20,7 @@ echo "=============================================="
 echo ""
 
 # Configuration - adjust these if needed
-MODEL="${MODEL:-llama3.1:70b}"
+MODEL="${MODEL:-llama3.1:70b-instruct-q4_0}"
 ENSEMBLE="${ENSEMBLE:-9}"
 INPUT="data/test.json"
 OUTPUT="predictions/submission_final.jsonl"
