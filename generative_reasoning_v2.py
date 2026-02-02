@@ -246,8 +246,8 @@ def main():
     parser.add_argument("--model", default="llama3.1:70b-instruct-q4_0", help="Ollama model to use")
     parser.add_argument("--api-url", default="http://localhost:11434", help="Ollama API URL")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of samples for testing")
-    parser.add_argument("--ensemble", type=int, default=9, help="Number of ensemble votes (default: 9)")
-    parser.add_argument("--self-correction", action="store_true", default=True, help="Enable self-correction")
+    parser.add_argument("--ensemble", type=int, default=1, help="Number of ensemble votes (default: 1)")
+    parser.add_argument("--self-correction", action="store_true", default=False, help="Enable self-correction")
     parser.add_argument("--no-self-correction", action="store_false", dest="self_correction")
     parser.add_argument("--train-data", default="data/train.json", help="Path to training data for RAG")
     parser.add_argument("--aggregation", choices=["mean", "median", "trimmed_mean"], 
